@@ -4,7 +4,7 @@ namespace Logix_Movie_Application.Interfaces
 {
     public interface IUser
     {
-        Task<UserRequest> AuthenticateUser(UserRequest user);
+        Task<AuthenticateUser> Authenticate(UserRequest user);
 
         Task<bool> Register(UserRequest user);
 

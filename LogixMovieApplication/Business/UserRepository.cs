@@ -1,16 +1,23 @@
 ﻿using Logix_Movie_Application.Data;
 using Logix_Movie_Application.Dtos;
 using Logix_Movie_Application.Interfaces;
+using Logix_Movie_Application.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Logix_Movie_Application.Business
 {
     public class UserRepository : IUser
     {
         private readonly MovieDBContext _movieDBContext;
+        private readonly IConfiguration _config;
 
-        public UserRepository(MovieDBContext movieDBContext)
+        public UserRepository(IConfiguration config, MovieDBContext movieDBContext)
         {
+            _config = config;
             _movieDBContext = movieDBContext;
         }
 
@@ -24,20 +31,37 @@ namespace Logix_Movie_Application.Business
                 await _movieDBContext.Users.AddAsync(new Models.User
                 {
                     Email = user.Email,
-                    Password= user.Password,
+                    Password = user.Password,
                 });
                 await _movieDBContext.SaveChangesAsync();
 
                 return true;
-            }else
+            }
+            else
             {
                 return false;
             }
         }
 
-        public Task<UserRequest> AuthenticateUser(UserRequest user)
+        public async Task<AuthenticateUser> Authenticate(UserRequest user)
         {
-            throw new NotImplementedException();
+            AuthenticateUser authenticateUser = new();
+
+            var userDetail = await _movieDBContext.Users
+                .FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+            
+            if (userDetail != null)
+            {
+                var token = GenerateJSONWebToken(userDetail);
+                authenticateUser = new AuthenticateUser
+                {
+                    UserId = userDetail.Id,
+                    Email = userDetail.Email,
+                    Token = token
+                };
+            }
+
+            return authenticateUser;
         }
 
         public Task<bool> IsUserExists(int userId)
@@ -49,6 +73,31 @@ namespace Logix_Movie_Application.Business
         {
             var result = await _movieDBContext.Users.FirstOrDefaultAsync(u => u.Email == email);
             return result == null;
+        }
+
+        private string GenerateJSONWebToken(User user)
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:SecretKey"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            List<Claim> userClaims = new()
+            {
+                new Claim(JwtRegisteredClaimNames.Name, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, "user"),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.Role,"user"),
+                new Claim("userId", user.Id.ToString()),
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: userClaims,
+                expires: DateTime.Now.AddHours(Convert.ToDouble(_config["Expired"])),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
