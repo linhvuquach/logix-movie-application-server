@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Logix_Movie_Application.Migrations
 {
     [DbContext(typeof(MovieDBContext))]
-    [Migration("20230807093638_MovieDB")]
+    [Migration("20230807145824_MovieDB")]
     partial class MovieDB
     {
         /// <inheritdoc />
@@ -59,10 +59,6 @@ namespace Logix_Movie_Application.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

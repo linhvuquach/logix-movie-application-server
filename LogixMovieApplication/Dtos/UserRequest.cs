@@ -1,11 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Logix_Movie_Application.Models
+namespace Logix_Movie_Application.Dtos
 {
-    public class User : Base
+    public class UserRequest
     {
         [Required]
         public string Email { get; set; }
+
         [Required]
         public string Password { get; set; }
     }
