@@ -88,7 +88,7 @@ namespace Logix_Movie_Application.Business
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: userClaims,
-                expires: DateTime.Now.AddHours(Convert.ToDouble(_config["Expired"])),
+                expires: DateTime.Now.AddHours(Convert.ToDouble(_config["Jwt:Expired"])),
                 signingCredentials: credentials
             );
 

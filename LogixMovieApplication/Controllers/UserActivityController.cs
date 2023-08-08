@@ -1,11 +1,14 @@
 using Logix_Movie_Application.Dtos;
 using Logix_Movie_Application.Interfaces;
+using Logix_Movie_Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Logix_Movie_Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy = UserRoles.User)]
     public class UserActivityController : ControllerBase
     {
         private readonly ILogger<UserActivityController> _logger;
