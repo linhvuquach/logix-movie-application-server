@@ -83,9 +83,9 @@ namespace Logix_Movie_Application.Business
             List<Claim> userClaims = new()
             {
                 new Claim(JwtRegisteredClaimNames.Name, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, "user"),
+                new Claim(JwtRegisteredClaimNames.Sub, UserRoles.User),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role,"user"),
+                new Claim(ClaimTypes.Role,UserRoles.User),
                 new Claim("userId", user.Id.ToString()),
             };
 
