@@ -10,12 +10,12 @@ using System.Text;
 
 namespace Logix_Movie_Application.Business
 {
-    public class UserRepository : IUser
+    public class UserRepository : BaseRepository<User>, IUser
     {
         private readonly MovieDBContext _movieDBContext;
         private readonly IConfiguration _config;
 
-        public UserRepository(IConfiguration config, MovieDBContext movieDBContext)
+        public UserRepository(IConfiguration config, MovieDBContext movieDBContext) : base(movieDBContext)
         {
             _config = config;
             _movieDBContext = movieDBContext;
@@ -49,7 +49,7 @@ namespace Logix_Movie_Application.Business
 
             var userDetail = await _movieDBContext.Users
                 .FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
-            
+
             if (userDetail != null)
             {
                 var token = GenerateJSONWebToken(userDetail);
@@ -62,11 +62,6 @@ namespace Logix_Movie_Application.Business
             }
 
             return authenticateUser;
-        }
-
-        public Task<bool> IsUserExists(int userId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<bool> CheckEmailAvailability(string email)
@@ -83,9 +78,9 @@ namespace Logix_Movie_Application.Business
             List<Claim> userClaims = new()
             {
                 new Claim(JwtRegisteredClaimNames.Name, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, "user"),
+                new Claim(JwtRegisteredClaimNames.Sub, UserRoles.User),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.Role,"user"),
+                new Claim(ClaimTypes.Role,UserRoles.User),
                 new Claim("userId", user.Id.ToString()),
             };
 
@@ -93,7 +88,7 @@ namespace Logix_Movie_Application.Business
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: userClaims,
-                expires: DateTime.Now.AddHours(Convert.ToDouble(_config["Expired"])),
+                expires: DateTime.Now.AddHours(Convert.ToDouble(_config["Jwt:Expired"])),
                 signingCredentials: credentials
             );
 

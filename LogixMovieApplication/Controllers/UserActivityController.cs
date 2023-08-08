@@ -1,31 +1,53 @@
 using Logix_Movie_Application.Dtos;
+using Logix_Movie_Application.Interfaces;
+using Logix_Movie_Application.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Logix_Movie_Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy = UserRoles.User)]
     public class UserActivityController : ControllerBase
     {
         private readonly ILogger<UserActivityController> _logger;
+        private readonly IUser _userRepository;
+        private readonly IMovie _movieRepository;
+        private readonly IUserActivity _userActivityRepository;
 
-        public UserActivityController(ILogger<UserActivityController> logger)
+
+        public UserActivityController(IUser userRepository,
+            IMovie movieRepository,
+            IUserActivity userActivityRepository,
+            ILogger<UserActivityController> logger)
         {
+            _userRepository = userRepository;
+            _movieRepository= movieRepository;
+            _userActivityRepository = userActivityRepository;
             _logger = logger;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> LikeMovie([FromBody] LikeDislikeRequest request)
+        [HttpPost("like-dislike")]
+        public async Task<IActionResult> LikeOrDislikeMovie([FromBody] LikeDislikeRequest request)
         {
-            // TODO:
-            // implement like or dislike within method
-            return Ok(true);
-        }
+            try
+            {
+                var user = await _userRepository.GetByIdAsync(request.UserId);
+                var movie = await _movieRepository.GetByIdAsync(request.MovieId);
 
-        //[HttpPatch("like")]
-        //public async Task<IActionResult> LikeMovie([FromBody] LikeDislikeRequest request)
-        //{
-        //    // Do something
-        //}
+                if (user != null && movie != null)
+                {
+                    await _userActivityRepository.LikeOrDislikeMovie(request);
+                }
+
+                return Ok(request.MovieId);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while like or dislike movie.");
+                throw;
+            }
+        }
     }
 }
