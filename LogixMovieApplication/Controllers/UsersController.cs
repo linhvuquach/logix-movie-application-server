@@ -6,13 +6,13 @@ namespace Logix_Movie_Application.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<UsersController> _logger;
         private readonly IUser _userRepository;
 
-        public UserController(IUser userRepository,
-            ILogger<UserController> logger)
+        public UsersController(IUser userRepository,
+            ILogger<UsersController> logger)
         {
             _logger = logger;
             _userRepository = userRepository;

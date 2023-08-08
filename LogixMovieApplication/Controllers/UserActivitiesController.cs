@@ -9,18 +9,18 @@ namespace Logix_Movie_Application.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Policy = UserRoles.User)]
-    public class UserActivityController : ControllerBase
+    public class UserActivitiesController : ControllerBase
     {
-        private readonly ILogger<UserActivityController> _logger;
+        private readonly ILogger<UserActivitiesController> _logger;
         private readonly IUser _userRepository;
         private readonly IMovie _movieRepository;
         private readonly IUserActivity _userActivityRepository;
 
 
-        public UserActivityController(IUser userRepository,
+        public UserActivitiesController(IUser userRepository,
             IMovie movieRepository,
             IUserActivity userActivityRepository,
-            ILogger<UserActivityController> logger)
+            ILogger<UserActivitiesController> logger)
         {
             _userRepository = userRepository;
             _movieRepository= movieRepository;
