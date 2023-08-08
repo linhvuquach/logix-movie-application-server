@@ -14,6 +14,8 @@ builder.Services.AddDbContext<MovieDBContext>(options =>
 
 // Register services
 builder.Services.AddScoped<IUser, UserRepository>();
+builder.Services.AddScoped<IMovie, MovieRepository>();
+builder.Services.AddScoped<IUserActivity, UserActivityRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

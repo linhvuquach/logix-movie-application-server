@@ -44,9 +44,9 @@ namespace Logix_Movie_Application.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MoviewId = table.Column<int>(type: "int", nullable: false),
+                    //MoviewId = table.Column<int>(type: "int", nullable: false),
                     IsLiked = table.Column<bool>(type: "bit", nullable: false),
-                    IsDisLiked = table.Column<bool>(type: "bit", nullable: false),
+                    //IsDisLiked = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     MovieId = table.Column<int>(type: "int", nullable: false)
                 },
