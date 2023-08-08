@@ -10,5 +10,8 @@ namespace Logix_Movie_Application.Models
         public string ImageUrl { get; set; }
 
         public virtual ICollection<UserActivity> UserActivities { get; set; }
+
+        public int TotalLikes => UserActivities.Count(ua => ua.IsLiked);
+        public int TotalDislikes => UserActivities.Count(ua => !ua.IsLiked);
     }
 }

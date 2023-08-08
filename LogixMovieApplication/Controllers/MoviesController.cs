@@ -22,16 +22,16 @@ namespace Logix_Movie_Application.Controllers
         }
 
         [HttpGet]
-        public async Task<List<MovieRequest>> Get()
+        public async Task<IEnumerable<MovieRequest>> Get()
         {
             try
             {
-                var result = await _movieRepository.GetAllMovies();
+                var result = await _movieRepository.GetAllMoviesAsync();
                 return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred while register user.");
+                _logger.LogError(ex, "An error occurred while get list movie.");
                 throw;
             }
         }
