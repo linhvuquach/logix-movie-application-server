@@ -1,7 +1,9 @@
 ﻿using Logix_Movie_Application.Data;
 using Logix_Movie_Application.Dtos;
+using Logix_Movie_Application.Helpers;
 using Logix_Movie_Application.Interfaces;
 using Logix_Movie_Application.Models;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -26,12 +28,12 @@ namespace Logix_Movie_Application.Business
             bool isEmailAvailable = await CheckEmailAvailability(user.Email);
             if (isEmailAvailable)
             {
-                // TODO:
-                // Hash password
+                string passwordHashed = PasswordHandler.HashPassword(user.Password, out var salt);
                 await _movieDBContext.Users.AddAsync(new Models.User
                 {
                     Email = user.Email,
-                    Password = user.Password,
+                    Password = passwordHashed,
+                    Salt = Convert.ToBase64String(salt)
                 });
                 await _movieDBContext.SaveChangesAsync();
 
@@ -48,9 +50,13 @@ namespace Logix_Movie_Application.Business
             AuthenticateUser authenticateUser = new();
 
             var userDetail = await _movieDBContext.Users
-                .FirstOrDefaultAsync(u => u.Email == user.Email && u.Password == user.Password);
+                .FirstOrDefaultAsync(u => u.Email == user.Email);
 
-            if (userDetail != null)
+            if (userDetail == null) return authenticateUser;
+
+            bool isPasswordValid = PasswordHandler.VerifyPassword(user.Password, userDetail.Password, userDetail.Salt);
+
+            if (isPasswordValid)
             {
                 var token = GenerateJSONWebToken(userDetail);
                 authenticateUser = new AuthenticateUser
