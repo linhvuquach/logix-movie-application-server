@@ -15,7 +15,7 @@ namespace Logix_Movie_Application.Business
             _movieDBContext = movieDBContext;
         }
 
-        public async Task LikeOrDislikeMovie(LikeDislikeRequest request)
+        public async Task LikeOrDislikeMovieAsync(LikeDislikeRequest request)
         {
             var existingLike = await _movieDBContext.UserActivities
                 .FirstOrDefaultAsync(ua => ua.MovieId == request.MovieId && ua.UserId == request.UserId);
@@ -36,6 +36,26 @@ namespace Logix_Movie_Application.Business
             }
 
             await _movieDBContext.SaveChangesAsync();
+        }
+
+        public async Task<UserLikeOrDislike> UserLikeOrDislikeAsync(int userId)
+        {
+            var moviesLiked = await _movieDBContext.Movies
+                .Where(m => m.UserActivities.Any(ua => ua.UserId == userId && ua.IsLiked))
+                .Select(m => m.Id)
+                .ToListAsync();
+
+            var moviesDisliked = await _movieDBContext.Movies
+                .Where(m => m.UserActivities.Any(ua => ua.UserId == userId && !ua.IsLiked))
+                .Select(m => m.Id)
+                .ToListAsync(); ;
+
+            return new UserLikeOrDislike
+            {
+                UserId = userId,
+                Likes = moviesLiked,
+                Dislikes = moviesDisliked
+            };
         }
     }
 }

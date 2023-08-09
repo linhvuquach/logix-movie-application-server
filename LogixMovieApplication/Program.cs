@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// Register CORS middleware
+AppExtension.RegisterCORS(builder.Services, builder.Configuration);
 
 // Movie context
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -105,6 +107,9 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
     });
 }
+
+// Enable CORS middleware
+app.UseCors(builder.Configuration["AllowSpecificOrigin"]);
 
 app.UseHttpsRedirection();
 

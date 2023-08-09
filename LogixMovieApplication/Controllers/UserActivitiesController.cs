@@ -16,14 +16,13 @@ namespace Logix_Movie_Application.Controllers
         private readonly IMovie _movieRepository;
         private readonly IUserActivity _userActivityRepository;
 
-
         public UserActivitiesController(IUser userRepository,
             IMovie movieRepository,
             IUserActivity userActivityRepository,
             ILogger<UserActivitiesController> logger)
         {
             _userRepository = userRepository;
-            _movieRepository= movieRepository;
+            _movieRepository = movieRepository;
             _userActivityRepository = userActivityRepository;
             _logger = logger;
         }
@@ -38,7 +37,7 @@ namespace Logix_Movie_Application.Controllers
 
                 if (user != null && movie != null)
                 {
-                    await _userActivityRepository.LikeOrDislikeMovie(request);
+                    await _userActivityRepository.LikeOrDislikeMovieAsync(request);
                 }
 
                 return Ok(request.MovieId);
@@ -46,6 +45,21 @@ namespace Logix_Movie_Application.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred while like or dislike movie.");
+                throw;
+            }
+        }
+
+        [HttpGet("{userId}/userLikeOrDislike")]
+        public async Task<IActionResult> UserLikeOrDislike(int userId)
+        {
+            try
+            {
+                var result = await _userActivityRepository.UserLikeOrDislikeAsync(userId);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while get User's like or dislike movies.");
                 throw;
             }
         }

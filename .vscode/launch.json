@@ -10,9 +10,9 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Logix-Movie-Application/bin/Debug/net6.0/Logix-Movie-Application.dll",
+            "program": "${workspaceFolder}/LogixMovieApplication/bin/Debug/net6.0/LogixMovieApplication.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Logix-Movie-Application",
+            "cwd": "${workspaceFolder}/LogixMovieApplication",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
