@@ -1,8 +1,10 @@
-using Logix_Movie_Application.Business;
-using Logix_Movie_Application.Data;
-using Logix_Movie_Application.Extensions;
-using Logix_Movie_Application.Interfaces;
-using Logix_Movie_Application.Models;
+using LogixMovie.Application.Constants;
+using LogixMovie.Application.Services;
+using LogixMovie.Application.Services.Interfaces;
+using LogixMovie.Domain.Repositories;
+using LogixMovie.Infrastructure.Data;
+using LogixMovie.Infrastructure.Repositories;
+using LogixMovie.Web.Extentions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +13,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+// Auto Mapper
+builder.Services.AddAutoMapper(typeof(Program));
 
 // Register CORS middleware
 AppExtension.RegisterCORS(builder.Services, builder.Configuration);
@@ -22,9 +25,8 @@ builder.Services.AddDbContext<MovieDBContext>(options =>
     options.UseSqlServer(connectionString));
 
 // Register services
-builder.Services.AddScoped<IUser, UserRepository>();
-builder.Services.AddScoped<IMovie, MovieRepository>();
-builder.Services.AddScoped<IUserActivity, UserActivityRepository>();
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IMovieService, MovieService>();
 
 // Add Authentication and Authorization
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -95,6 +97,8 @@ builder.Services.AddSwaggerGen(options =>
     });
     //options.OperationFilter<SecurityRequirementsOperationFilter>();
 });
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
