@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovieApplication", "LogixMovieApplication\LogixMovieApplication.csproj", "{19C1CEBD-529F-41F1-9681-DA3F6ED95631}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Web", "LogixMovie.Web\LogixMovie.Web.csproj", "{B5F609F5-4524-41DF-A810-70E0169A2C0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Application", "LogixMovie.Application\LogixMovie.Application.csproj", "{2B7CDC27-C665-4E14-9FE4-1842671A7D40}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Domain", "LogixMovie.Domain\LogixMovie.Domain.csproj", "{1BF5CC9E-DEF2-4806-A2C8-600C5F10100C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Infrastructure", "LogixMovie.Infrastructure\LogixMovie.Infrastructure.csproj", "{A6147F56-43CF-4920-9931-6883B871B268}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogixMovie.Test", "LogixMovie.Test\LogixMovie.Test.csproj", "{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{19C1CEBD-529F-41F1-9681-DA3F6ED95631}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{19C1CEBD-529F-41F1-9681-DA3F6ED95631}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{19C1CEBD-529F-41F1-9681-DA3F6ED95631}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{19C1CEBD-529F-41F1-9681-DA3F6ED95631}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5F609F5-4524-41DF-A810-70E0169A2C0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5F609F5-4524-41DF-A810-70E0169A2C0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5F609F5-4524-41DF-A810-70E0169A2C0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5F609F5-4524-41DF-A810-70E0169A2C0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7CDC27-C665-4E14-9FE4-1842671A7D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7CDC27-C665-4E14-9FE4-1842671A7D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7CDC27-C665-4E14-9FE4-1842671A7D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7CDC27-C665-4E14-9FE4-1842671A7D40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BF5CC9E-DEF2-4806-A2C8-600C5F10100C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BF5CC9E-DEF2-4806-A2C8-600C5F10100C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BF5CC9E-DEF2-4806-A2C8-600C5F10100C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BF5CC9E-DEF2-4806-A2C8-600C5F10100C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6147F56-43CF-4920-9931-6883B871B268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6147F56-43CF-4920-9931-6883B871B268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6147F56-43CF-4920-9931-6883B871B268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6147F56-43CF-4920-9931-6883B871B268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
