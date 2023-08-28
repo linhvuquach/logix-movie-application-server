@@ -7,7 +7,7 @@
 4. Build and launch the application from Visual Studio.
 
 ## TODO
-- Separate into single responsibility
+- Apply N-tier player
 - Containerization
 - Deploy to Azure
 - Build CI//CD pipeline
