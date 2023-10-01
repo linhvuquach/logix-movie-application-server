@@ -27,10 +27,5 @@ namespace LogixMovie.Infrastructure.Repositories
                 return false;
             }
         }
-
-        public Task<bool> CheckEmailAvailabilityAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

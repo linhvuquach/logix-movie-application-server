@@ -20,7 +20,8 @@ namespace LogixMovie.Application.Services
 
         public async Task<bool> RegisterAsync(UserDto user)
         {
-            bool isEmailAvailable = await _userRepository.CheckEmailAvailabilityAsync(user.Email);
+            User existingEmail = await _userRepository.FindAsync(u => u.Email == user.Email);
+            bool isEmailAvailable = existingEmail == null;
 
             if (isEmailAvailable)
             {
