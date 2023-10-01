@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Domain", "LogixM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Infrastructure", "LogixMovie.Infrastructure\LogixMovie.Infrastructure.csproj", "{A6147F56-43CF-4920-9931-6883B871B268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogixMovie.Test", "LogixMovie.Test\LogixMovie.Test.csproj", "{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogixMovie.Test", "LogixMovie.Test\LogixMovie.Test.csproj", "{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogixMovie.Common", "LogixMovie.Common\LogixMovie.Common.csproj", "{CD7998EB-D734-4D1C-A198-B06033905F15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79BE6A20-1F29-4061-A5DA-33923F6FAB2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7998EB-D734-4D1C-A198-B06033905F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7998EB-D734-4D1C-A198-B06033905F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7998EB-D734-4D1C-A198-B06033905F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7998EB-D734-4D1C-A198-B06033905F15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LogixMovie.Common\LogixMovie.Common.csproj" />
     <ProjectReference Include="..\LogixMovie.Domain\LogixMovie.Domain.csproj" />
   </ItemGroup>
 
