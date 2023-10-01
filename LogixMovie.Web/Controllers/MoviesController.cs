@@ -1,6 +1,6 @@
-﻿using LogixMovie.Application.Constants;
-using LogixMovie.Application.Dtos;
+﻿using LogixMovie.Application.Dtos;
 using LogixMovie.Application.Services.Interfaces;
+using LogixMovie.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +8,7 @@ namespace LogixMovie.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    //[Authorize(Policy = UserRoles.User)]
+    [Authorize(Policy = UserRoles.User)]
     public class MoviesController : ControllerBase
     {
         private readonly ILogger<MoviesController> _logger;
@@ -21,7 +21,7 @@ namespace LogixMovie.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MovieDto>> Get()
+        public async Task<IEnumerable<MovieDto>> GetAll()
         {
             try
             {

@@ -1,7 +1,6 @@
 using LogixMovie.Application.Dtos;
 using LogixMovie.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq.Expressions;
 
 namespace LogixMovie.Web.Controllers
 {

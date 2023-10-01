@@ -3,6 +3,7 @@ using LogixMovie.Application.Dtos;
 using LogixMovie.Application.Services.Interfaces;
 using LogixMovie.Common.Helpers;
 using LogixMovie.Domain.Entities;
+using LogixMovie.Domain.Models;
 using LogixMovie.Domain.Repositories;
 
 namespace LogixMovie.Application.Services
@@ -10,11 +11,13 @@ namespace LogixMovie.Application.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMovieRepository _movieRepository;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(IUserRepository userRepository, IMovieRepository movieRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _movieRepository = movieRepository;
             _mapper = mapper;
         }
 
@@ -60,6 +63,24 @@ namespace LogixMovie.Application.Services
             }
 
             return authenticateUser;
+        }
+
+        public async Task UserLikeOrDislikeMovieAsync(LikeOrDislikeMovieDto request)
+        {
+            var user = await _userRepository.GetByIdAsync(request.UserId);
+            var movie = await _movieRepository.GetByIdAsync(request.MovieId);
+
+            if(user != null && movie != null)
+            {
+                await _userRepository.UserLikeOrDislikeMovieAsync(_mapper.Map<LikeOrDislikeMovie>(request));
+            }
+        }
+
+        public async Task<UserLikeOrDislikeMovieDto> GetListUserLikeOrDislikeMovieAsync(int userId)
+        {
+            var result = await _userRepository.GetListUserLikeOrDislikeMovieAsync(userId);
+
+            return _mapper.Map<UserLikeOrDislikeMovieDto>(result);
         }
     }
 }

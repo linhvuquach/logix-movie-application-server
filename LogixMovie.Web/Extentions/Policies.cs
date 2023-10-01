@@ -1,4 +1,4 @@
-﻿using LogixMovie.Application.Constants;
+﻿using LogixMovie.Common.Constants;
 using Microsoft.AspNetCore.Authorization;
 
 namespace LogixMovie.Web.Extentions

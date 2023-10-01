@@ -4,8 +4,12 @@ namespace LogixMovie.Application.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<AuthenticateDto> AuthenticateAsync(UserDto user);
+        public Task<AuthenticateDto> AuthenticateAsync(UserDto user);
 
-        Task<bool> RegisterAsync(UserDto user);
+        public Task<bool> RegisterAsync(UserDto user);
+
+        public Task UserLikeOrDislikeMovieAsync(LikeOrDislikeMovieDto request);
+
+        public Task<UserLikeOrDislikeMovieDto> GetListUserLikeOrDislikeMovieAsync(int userId);
     }
 }
